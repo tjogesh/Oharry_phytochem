@@ -71,4 +71,5 @@ ggplot(import, aes(x=MeanDecreaseAccuracy, y=reorder(traits, MeanDecreaseAccurac
         axis.text.x  = element_text(size = 12),
         axis.text.y = element_text(size = 12))
 
-#ggsave("Fig1c_randomforest.pdf", width=11, height=8.5)
+ggsave("Figs/RandomForest.pdf", width = 11, height = 8.5, units = "in")
+

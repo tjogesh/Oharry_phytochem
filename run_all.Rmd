@@ -1,0 +1,59 @@
+---
+title: "Run All"
+output: html_notebook
+editor_options: 
+  chunk_output_type: inline
+---
+
+* Primary Author: Tania Jogesh, tania.jogesh@gmail.com
+* Project Started: 10/18/2021
+* System: Mac OSX."x86_64-apple-darwin17.0"
+* R Version: R version 4.0.2 (2020-06-22)
+
+*This script will run (in order) all neccessary scripts and Rmds to generate final output.*
+
+
+
+### Always Run Scripts
+
+```{r}
+source(here::here("always_run","libraries.R"))
+source(here::here("always_run","functions.R"))
+source(here::here("always_run","options.R"))
+
+```
+
+
+### Clean Up Scripts
+reads in the excel sheets and produced green scent and morph datasets for analysis
+
+```{r}
+#read in excel sheets from R. Raguso and clean up for analysis
+source(here::here("cleanup","import_clean.R"))
+
+
+```
+
+### Analysis Scripts
+description
+
+```{r}
+#scripts to looks at raw data
+#source(here::here("analysis","explore_data.R"))
+
+#calculate anosim stats and generate nmds plots
+source(here::here("analysis","anosim_nmds.R"))
+
+#calculate anosim stats and generate nmds plots for greenhouse vs field comparisons
+source(here::here("analysis","compare_field_gh.R"))
+
+#generate random forest figure
+source(here::here("analysis","PopRandomForest.R"))
+
+#get mantel test stats
+source(here::here("analysis","scent_genetic_dist_mantel.R"))
+
+```
+
+
+

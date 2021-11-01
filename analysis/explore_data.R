@@ -3,16 +3,6 @@ source('always_run/libraries.R')
 scent_and_morph<-read_csv('data_processed/scent_morph.csv')
 
 #check for outliers 
-morph_cols<-c("floral_flare", 
-              "herkogamy", 
-              "tube_length", 
-              "nectar_length", 
-              "corolla_diam", 
-              "sucrose_equivalents")
-
-scent_cols<-scent_and_morph[,4:41] %>% 
-  select(-c("tic_peak_area","toluene_int_std")) %>% 
-  colnames()
 
 field_data %>% 
   skim(morph_cols)

@@ -27,7 +27,7 @@ single_mat_lin_gh<-greenhouse_data %>%
 
 single_mat_lin_gh %>% 
   count(pop_ord, lin_phenotype) %>% 
-  write_csv('pop_year_samples_gh.csv')
+  write_csv('data_processed/pop_year_samples_gh.csv')
 
 pops_in_gh<-c("BAC","FLO","PW","DC", "BMR", "BLOOM")
 
@@ -68,6 +68,7 @@ combined_dataset %>%
         axis.text.x = element_text(size = rel(1.5)),
         axis.title.y = element_text(size = rel(1.5)),
         axis.title.x = element_text(size = rel(1.5)))
+ggsave("Figs/gh_field_boxplot.pdf", width = 11, height = 8.5, units = "in")
 
 combined_dataset %>% 
   #filter(linalool<400000) %>% 
@@ -117,6 +118,7 @@ ggplot(Combo_prop.nmin) +
   geom_vline(xintercept = 0, alpha=0.3)+
   xlab("NMDS1")+
   ylab("NMDS2")
+ggsave("Figs/NMDS_GH_field.pdf", width = 11, height = 8.5, units = "in")
 
 
 #ANOSIM 

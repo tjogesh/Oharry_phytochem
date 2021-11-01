@@ -1,17 +1,19 @@
 
 #scent
-scent_data = field_data %>% 
+scent_data <- field_data %>% 
   select(pop_ord, year, lin_phenotype, all_of(scent_cols), tic_peak_area) %>% 
   na.omit() %>% 
   mutate(year=as.character(year), 
          pop_ord=as.character(pop_ord)) 
 
+#convert into proportions for analysis
 scent_data<-scent_data %>% 
   mutate_if(is.numeric, ~./tic_peak_area) 
 
 scent_data %>% 
   count(lin_phenotype)
 
+#anosim
 sqrt_scent.dis<-distance(sqrt(scent_data[,scent_cols]), "bray-curtis")
 pop <- scent_data %>% select(pop_ord) %>% pull()
 popDiffall<- anosim(sqrt_scent.dis, pop)
@@ -26,6 +28,7 @@ scent.nmds.df$pop_ord <-scent_data$pop_ord
 scent.nmds.df$lin_phenotype <-scent_data$lin_phenotype
 scent.nmds.df$year <-scent_data$year
 
+#field data NMDS
 scent.nmds.df %>% 
   ggplot(aes(x=X2, y=X1, color = factor(lin_phenotype))) + 
   stat_ellipse(geom = "polygon", alpha = 0.2, aes(fill = lin_phenotype), color="gray")+
@@ -47,7 +50,10 @@ scent.nmds.df %>%
   geom_vline(xintercept = 0, alpha=0.3)+
   xlab("NMDS1")+
   ylab("NMDS2")
+ggsave("Figs/NMDSallfield.pdf", width = 11, height = 8.5, units = "in")
 
+
+#NMDS by year
 scent.nmds.df %>% 
   filter(pop_ord %in% c("CC","PW","DC","TRIN")) %>% 
   mutate(pop_ord=fct_relevel(pop_ord,c("CC","PW","TRIN", "DC"))) %>% 
@@ -69,6 +75,7 @@ scent.nmds.df %>%
         axis.title.x = element_text(size = rel(1.5)))+
   geom_hline(yintercept = 0, alpha=0.3)+
   geom_vline(xintercept = 0, alpha=0.3)
+ggsave("Figs/NMDSyear.pdf", width = 11, height = 8.5, units = "in")
 
 #anosim multiple years
 get_anosim<-function(df){
@@ -78,7 +85,6 @@ get_anosim<-function(df){
   return(popDiffall)
 }
 
-get_anosim(multiple_years_CC)
 
 multiple_years<- scent_data %>% 
   filter(pop_ord %in% c("CC","PW","DC","TRIN")) 
@@ -87,7 +93,6 @@ yearwise_per_pop<-multiple_years %>%
   droplevels() %>% 
   split(.$pop_ord) %>% 
   map(~get_anosim(.x))
-
 
 
 #scent by year 
@@ -109,6 +114,7 @@ field_data %>%
         axis.text.x = element_blank(),
         axis.title.y = element_text(size = rel(1.5)),
         axis.title.x = element_text(size = rel(1.5)))
+ggsave("Figs/TotalEmissionYear.pdf", width = 11, height = 8.5, units = "in")
 
 #prop plants with linalool 
 prop_linalool<-field_data %>% 
@@ -123,7 +129,7 @@ prop_linalool%>%
   group_by(lin_phenotype) %>% 
   summarise(average_num_per_pop= mean(prop, na.rm = T))
   
-#in proportion
+#lin proportion
 scent_data %>% 
   pull(linalool) %>% 
   max()

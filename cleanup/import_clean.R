@@ -1,9 +1,9 @@
-source('always_run/libraries.R')
-source('always_run/functions.R')
+# source('always_run/libraries.R')
+# source('always_run/functions.R')
 ##---------------------------------------------
 #greenhouse
 ##---------------------------------------------
-GH_data<-read_excel("raw_data/O harry data for tania.xlsx", sheet="greenhouse 2008-09")
+GH_data<-read_excel("raw_data/O harry data for tania rar corr.xlsx", sheet="greenhouse 2008-09")
 
 populations_gh<-GH_data%>% 
   slice((1)) %>% 
@@ -30,7 +30,7 @@ compounds_GH<-GH_data%>%
 ##---------------------------------------------
 #field 2008
 ##---------------------------------------------
-Field_2008<-read_excel("raw_data/O harry data for tania.xlsx", sheet="CHALMAV2008")
+Field_2008<-read_excel("raw_data/O harry data for tania rar corr.xlsx", sheet="CHALMAV2008")
 
 compounds_2008<-Field_2008%>% 
   slice((2:38))%>% 
@@ -51,7 +51,7 @@ compounds_2008<-Field_2008%>%
 ##---------------------------------------------
 #field 2009
 ##---------------------------------------------
-Field_2009<-read_excel("raw_data/O harry data for tania.xlsx", sheet="Oharry 2009")
+Field_2009<-read_excel("raw_data/O harry data for tania rar corr.xlsx", sheet="Oharry 2009")
 
 populations_2009<-Field_2009%>% 
   slice((1)) %>% 
@@ -81,7 +81,7 @@ compounds_2009<-Field_2009%>%
 ##---------------------------------------------
 #field 2010
 ##---------------------------------------------
-Field_2010<-read_excel("raw_data/O harry data for tania.xlsx", sheet="Oharry 2010")
+Field_2010<-read_excel("raw_data/O harry data for tania rar corr.xlsx", sheet="Oharry 2010")
 
 populations_2010<-Field_2010%>% 
   slice((1)) %>% 
@@ -111,7 +111,7 @@ compounds_2010<-Field_2010%>%
 ##---------------------------------------------
 #field 2011
 ##---------------------------------------------
-Field_2011<-read_excel("raw_data/O harry data for tania.xlsx", sheet="Oharry 2011")
+Field_2011<-read_excel("raw_data/O harry data for tania rar corr.xlsx", sheet="Oharry 2011")
 
 populations_2011<-Field_2011%>% 
   slice((1)) %>% 
@@ -144,7 +144,7 @@ compounds_2011<-Field_2011%>%
 #field 2012
 ##---------------------------------------------
 
-Field_2012<-read_excel("raw_data/O harry data for tania.xlsx", sheet="Oharry 2012")
+Field_2012<-read_excel("raw_data/O harry data for tania rar corr.xlsx", sheet="corrected 2012")
 
 
 compounds_2012<-Field_2012%>% 
@@ -304,7 +304,7 @@ morph_cols<-c("floral_flare",
               "corolla_diam", 
               "sucrose_equivalents")
 
-scent_cols<-scent_and_morph[,4:42] %>% 
+scent_cols<-scent_and_morph[,4:41] %>% 
   select(-c("tic_peak_area","toluene_int_std")) %>% 
   colnames()
 
@@ -338,17 +338,19 @@ field_data<-scent_and_morph %>%
 
 # scent_and_morph %>% 
 #   write_csv("data_processed/scent_morph.csv")
+
 field_data %>% 
   count(is.na(tic_peak_area))
 
 field_data %>% 
   filter(is.na(tic_peak_area))
 
+#remove where no total peak area
 field_data %>% 
   filter(!is.na(tic_peak_area)) %>% 
   count(pop_ord, lin_phenotype, year) %>% 
   pivot_wider(names_from = year, values_from=n) %>% 
-  write_csv('pop_year_samples.csv', na = "")
+  write_csv('data_processed/pop_year_samples.csv', na = "")
 
 #field data not adjusted for dry wt of flower
 unadjusted_field_data<-scent_and_morph %>% 
@@ -357,5 +359,5 @@ unadjusted_field_data<-scent_and_morph %>%
   mutate_at(scent_cols, ~calc_tol_equiv(., toluene_int_std)) %>% 
   mutate(tic_peak_area=calc_tol_equiv(tic_peak_area, toluene_int_std)) 
 
-R.version
-citation()
+
+

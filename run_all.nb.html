@@ -1758,9 +1758,14 @@ pre code {
 <h3>Always Run Scripts</h3>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc291cmNlKGhlcmU6OmhlcmUoXCJhbHdheXNfcnVuXCIsXCJsaWJyYXJpZXMuUlwiKSlcbnNvdXJjZShoZXJlOjpoZXJlKFwiYWx3YXlzX3J1blwiLFwiZnVuY3Rpb25zLlJcIikpXG5zb3VyY2UoaGVyZTo6aGVyZShcImFsd2F5c19ydW5cIixcIm9wdGlvbnMuUlwiKSlcblxuYGBgIn0= -->
-<pre class="r"><code>source(here::here(&quot;always_run&quot;,&quot;libraries.R&quot;))
-source(here::here(&quot;always_run&quot;,&quot;functions.R&quot;))
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc291cmNlKGhlcmU6OmhlcmUoXCJhbHdheXNfcnVuXCIsXCJsaWJyYXJpZXMuUlwiKSlcbmBgYCJ9 -->
+<pre class="r"><code>source(here::here(&quot;always_run&quot;,&quot;libraries.R&quot;))</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiKiBUaGUgbGlicmFyeSBpcyBhbHJlYWR5IHN5bmNocm9uaXplZCB3aXRoIHRoZSBsb2NrZmlsZS5cbiJ9 -->
+<pre><code>* The library is already synchronized with the lockfile.</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc291cmNlKGhlcmU6OmhlcmUoXCJhbHdheXNfcnVuXCIsXCJmdW5jdGlvbnMuUlwiKSlcbnNvdXJjZShoZXJlOjpoZXJlKFwiYWx3YXlzX3J1blwiLFwib3B0aW9ucy5SXCIpKVxuXG5gYGAifQ== -->
+<pre class="r"><code>source(here::here(&quot;always_run&quot;,&quot;functions.R&quot;))
 source(here::here(&quot;always_run&quot;,&quot;options.R&quot;))
 </code></pre>
 <!-- rnb-source-end -->
@@ -1776,9 +1781,6 @@ source(here::here(&quot;always_run&quot;,&quot;options.R&quot;))
 <pre class="r"><code>#read in excel sheets from R. Raguso and clean up for analysis
 source(here::here(&quot;cleanup&quot;,&quot;import_clean.R&quot;))</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiKiBUaGUgbGlicmFyeSBpcyBhbHJlYWR5IHN5bmNocm9uaXplZCB3aXRoIHRoZSBsb2NrZmlsZS5cbiJ9 -->
-<pre><code>* The library is already synchronized with the lockfile.</code></pre>
-<!-- rnb-output-end -->
 <!-- rnb-output-begin eyJkYXRhIjoiTmV3IG5hbWVzOlxuKiBgYCAtPiAuLi43XG4qIGBgIC0+IC4uLjhcbiogYGAgLT4gLi4uMjBcbiogYGAgLT4gLi4uMjFcbiogYGAgLT4gLi4uMzZcbiogLi4uXG5gc3VtbWFyaXNlKClgIGhhcyBncm91cGVkIG91dHB1dCBieSAnY29tcG91bmQnLiBZb3UgY2FuIG92ZXJyaWRlIHVzaW5nIHRoZSBgLmdyb3Vwc2AgYXJndW1lbnQuXG5Kb2luaW5nLCBieSA9IFwibmFtZVwiXG5OZXcgbmFtZXM6XG4qIGBgIC0+IC4uLjE2XG4qIGBgIC0+IC4uLjE3XG5gc3VtbWFyaXNlKClgIGhhcyBncm91cGVkIG91dHB1dCBieSAnY29tcG91bmQnLiBZb3UgY2FuIG92ZXJyaWRlIHVzaW5nIHRoZSBgLmdyb3Vwc2AgYXJndW1lbnQuXG5OZXcgbmFtZXM6XG4qIGBgIC0+IC4uLjIzXG4qIGBgIC0+IC4uLjI0XG4qIGBgIC0+IC4uLjM1XG4qIGBgIC0+IC4uLjM2XG4qIGBgIC0+IC4uLjQ3XG4qIC4uLlxuYHN1bW1hcmlzZSgpYCBoYXMgZ3JvdXBlZCBvdXRwdXQgYnkgJ2NvbXBvdW5kJy4gWW91IGNhbiBvdmVycmlkZSB1c2luZyB0aGUgYC5ncm91cHNgIGFyZ3VtZW50LlxuSm9pbmluZywgYnkgPSBcIm5hbWVcIlxuTmV3IG5hbWVzOlxuKiBgYCAtPiAuLi4zM1xuKiBgYCAtPiAuLi4zNFxuKiBgYCAtPiAuLi42NVxuKiBgYCAtPiAuLi42NlxuKiBgYCAtPiAuLi44MlxuKiAuLi5cbmBzdW1tYXJpc2UoKWAgaGFzIGdyb3VwZWQgb3V0cHV0IGJ5ICdjb21wb3VuZCcuIFlvdSBjYW4gb3ZlcnJpZGUgdXNpbmcgdGhlIGAuZ3JvdXBzYCBhcmd1bWVudC5cbkpvaW5pbmcsIGJ5ID0gXCJuYW1lXCJcbk5ldyBuYW1lczpcbiogYGAgLT4gLi4uMzNcbiogYGAgLT4gLi4uMzRcbiogYGAgLT4gLi4uNjRcbiogYGAgLT4gLi4uNjVcbiogYGAgLT4gLi4uOTRcbiogLi4uXG5gc3VtbWFyaXNlKClgIGhhcyBncm91cGVkIG91dHB1dCBieSAnY29tcG91bmQnLiBZb3UgY2FuIG92ZXJyaWRlIHVzaW5nIHRoZSBgLmdyb3Vwc2AgYXJndW1lbnQuXG5Kb2luaW5nLCBieSA9IFwibmFtZVwiXG5OZXcgbmFtZXM6XG4qIGBgIC0+IC4uLjMyXG4qIGBgIC0+IC4uLjMzXG4qIGBgIC0+IC4uLjQ2XG4qIGBgIC0+IC4uLjQ3XG4qIGBgIC0+IC4uLjc1XG4qIC4uLlxuYHN1bW1hcmlzZSgpYCBoYXMgZ3JvdXBlZCBvdXRwdXQgYnkgJ2NvbXBvdW5kJy4gWW91IGNhbiBvdmVycmlkZSB1c2luZyB0aGUgYC5ncm91cHNgIGFyZ3VtZW50LlxuRXhwZWN0ZWQgMiBwaWVjZXMuIE1pc3NpbmcgcGllY2VzIGZpbGxlZCB3aXRoIGBOQWAgaW4gNjY0IHJvd3MgWzEsIDIsIDMsIDQsIDUsIDYsIDcsIDgsIDksIDEwLCAxMSwgMTIsIDEzLCAxNCwgMTUsIDE2LCAxNywgMTgsIDE5LCAyMCwgLi4uXS5OQXMgaW50cm9kdWNlZCBieSBjb2VyY2lvbkpvaW5pbmcsIGJ5ID0gXCJqb2luX2lkXCJcbiJ9 -->
 <pre><code>New names:
 * `` -&gt; ...7

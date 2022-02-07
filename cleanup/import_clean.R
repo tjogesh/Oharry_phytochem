@@ -195,7 +195,7 @@ all_scent_data<-compounds_GH %>%
            TRUE~pop
          ))  %>% 
   mutate_all(~replace_na(., 0)) %>% 
-  mutate(join_id = paste(year, pop_clean, trimws(id), sep="_")) %>% 
+  mutate(join_id = paste(source, year, pop_clean, trimws(id), sep="_")) %>% 
   rename(phenylethanol= `2_phenylethanol`)
 
 ##----------------------------------------------
@@ -211,8 +211,8 @@ morph_cols<-c("floral_flare",
               "corolla_diameter_2", 
               "sucrose_equivalents")
 
-morph<-read_excel("raw_data/OharryFieldMorph20092012_KS_revised.xlsx", sheet="Sheet1") %>% 
-  rename_cols()%>% 
+morph <- read_excel("raw_data/OharryFieldMorph20092012_KS_revised.xlsx", sheet="Sheet1") %>% 
+  rename_cols() %>% 
   #standardize population names
   mutate(site_name=toupper(site_name),
          site_clean=case_when(
@@ -221,7 +221,7 @@ morph<-read_excel("raw_data/OharryFieldMorph20092012_KS_revised.xlsx", sheet="Sh
            str_detect(site_name,"TRINIDAD")~"TRIN",
            TRUE~site_name
          ))  %>% 
-  mutate(join_id=paste(date, site_clean, vial_, sep="_")) %>% 
+  mutate(join_id=paste("field", date, site_clean, vial_, sep="_")) %>% 
   #replce all handwritten nas
   mutate_at(c("nectar_length", "sucrose_equivalents"),~str_remove(.,"^\\.")) %>% 
   mutate_all(~na_if(.,"n/a")) %>% 
@@ -230,8 +230,15 @@ morph<-read_excel("raw_data/OharryFieldMorph20092012_KS_revised.xlsx", sheet="Sh
   mutate(sucrose_equivalents = na_if(sucrose_equivalents, "Not enough nectar"),
          sucrose_equivalents = na_if(sucrose_equivalents, "too little")) %>% 
   #separate instances where two measurements for tueb length 
-  separate(tube_length, into=c("tube_length1", "tube_length2"), sep="\\/") %>%
-  mutate_at(morph_cols, as.numeric) %>% 
+  separate(tube_length, into=c("tube_length1", "tube_length2"), sep="\\/") %>% 
+  mutate_at(c("floral_flare", 
+              "herkogamy", 
+              "tube_length1", 
+              "tube_length2", 
+              "nectar_length",
+              "corolla_diameter_1",
+              "corolla_diameter_2",
+              "sucrose_equivalents"), as.numeric) %>%  
   mutate(#use just one diameter where it is missing (id=158 MAV 2010)
     corolla_diam=(corolla_diameter_1+ corolla_diameter_2)/2,
     tube_length =ifelse(!is.na(tube_length2),  (tube_length1+ tube_length2)/2 , tube_length1)
@@ -242,6 +249,15 @@ morph<-read_excel("raw_data/OharryFieldMorph20092012_KS_revised.xlsx", sheet="Sh
 
 # all_scent_data %>% distinct(join_id)
 # morph %>% distinct(join_id)
+
+# read greenhouse morph data
+greenhouse_morph<-read_excel("raw_data/OharryGreenhouseMorph20082009.xlsx") %>% 
+  rename_cols() %>% 
+  filter(!is.na(site_name)) %>% 
+  mutate(vial_number=as.character(vial_number), 
+         site_name=toupper(site_name),
+         join_id=paste("GH", "2008", site_name, vial_number, sep="_"))  
+
 
 ##----------------------------------------------
 # combine morph and scent
@@ -291,8 +307,10 @@ lin_pops<-c("MSR",
             "WALS",
             "BAC")
 
-scent_and_morph <-scent_and_morph %>% 
-  mutate(lin_phenotype=ifelse(pop_clean %in% lin_pops, "linalool", "no linalool"))
+scent_and_morph <- scent_and_morph %>% 
+  mutate(lin_pop_phenotype=ifelse(pop_clean %in% lin_pops, "linalool", "no linalool"))
+
+source("analysis/GMM_linalool.R")
 ##----------------------------------------------
 # calculate toluene equivalents
 ##----------------------------------------------
@@ -348,7 +366,7 @@ field_data %>%
 #remove where no total peak area
 field_data %>% 
   filter(!is.na(tic_peak_area)) %>% 
-  count(pop_ord, lin_phenotype, year) %>% 
+  count(pop_ord, lin_pop_phenotype, year) %>% 
   pivot_wider(names_from = year, values_from=n) %>% 
   write_csv('data_processed/pop_year_samples.csv', na = "")
 
@@ -359,5 +377,43 @@ unadjusted_field_data<-scent_and_morph %>%
   mutate_at(scent_cols, ~calc_tol_equiv(., toluene_int_std)) %>% 
   mutate(tic_peak_area=calc_tol_equiv(tic_peak_area, toluene_int_std)) 
 
+
+#------
+#greenhouse scent data
+
+greenhouse_data <- gh_data %>% 
+  select(source, name, pop_ord, year, linalool_phenotype, lin_pop_phenotype, species, id, all_of(scent_cols), tic_peak_area, join_id) %>% 
+  #mutate(join_id=paste0(pop_ord,"_",id)) %>% 
+  left_join(greenhouse_morph) %>% 
+  mutate(plant_id=ifelse(plant_id=="B57-12-2", "B 57-12-2", plant_id),
+         plant_id=ifelse(plant_id=="BMR-30-9-1", "BMR 30-9-1", plant_id)) %>% 
+  separate(plant_id, into=c("pop_morph", "parental_id"), sep=(" "), remove=F) %>% 
+  separate(parental_id, into=c("mat_id", "flw_id", "rep"), sep=("-"), remove=F)
+
+
+# green house data consists of replicates so need to filter to one sample per plant
+single_mat_lin_gh<-greenhouse_data %>% 
+  group_by(site_name, mat_id) %>% 
+  filter(flw_id==min(flw_id, na.rm=T)) %>% 
+  filter(date==min(date, na.rm=T)) %>% 
+  filter(time==min(time, na.rm=T)) %>% 
+  ungroup()
+
+single_mat_lin_gh %>% distinct(site_name, mat_id) %>% count() == single_mat_lin_gh %>% count()
+
+
+single_mat_lin_gh %>% 
+  count(pop_ord, lin_pop_phenotype) %>% 
+  write_csv('data_processed/pop_year_samples_gh.csv')
+
+pops_in_gh<-c("BAC","FLO","PW","DC", "BMR", "BLOOM")
+
+combined_dataset<-unadjusted_field_data %>% 
+  select(source, join_id, name, pop_ord, year, linalool_phenotype, lin_pop_phenotype, species, id, all_of(scent_cols), tic_peak_area) %>% 
+  filter(pop_ord %in% pops_in_gh) %>% 
+  bind_rows(single_mat_lin_gh %>% 
+              select(source, join_id, name, pop_ord, year, linalool_phenotype, lin_pop_phenotype, species, id, all_of(scent_cols), tic_peak_area)) %>%
+  mutate(linalool_poly= ifelse(linalool>0, 'lin+', 'lin-')) %>% 
+  na.omit()  
 
 

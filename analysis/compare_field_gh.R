@@ -1,55 +1,11 @@
 
-#greenhouse data
-greenhouse_morph<-read_excel("raw_data/OharryGreenhouseMorph20082009.xlsx") %>% 
-  rename_cols() %>% 
-  mutate(vial_number=as.character(vial_number), 
-         site_name=toupper(site_name),
-         join_id=paste0(site_name,"_",vial_number))  
 
-colnames(greenhouse_morph)
-
-greenhouse_data <-gh_data %>% 
-  select(source, name, pop_ord, lin_phenotype, species, id, all_of(scent_cols), tic_peak_area) %>% 
-  mutate(join_id=paste0(pop_ord,"_",id)) %>% 
-  left_join(greenhouse_morph) %>% 
-  mutate(plant_id=ifelse(plant_id=="B57-12-2", "B 57-12-2", plant_id),
-         plant_id=ifelse(plant_id=="BMR-30-9-1", "BMR 30-9-1", plant_id)) %>% 
-  separate(plant_id, into=c("pop_morph", "parental_id"), sep=(" "), remove=F) %>% 
-  separate(parental_id, into=c("mat_id", "flw_id", "rep"), sep=("-"), remove=F)
-
-
-single_mat_lin_gh<-greenhouse_data %>% 
-  group_by(site_name, mat_id) %>% 
-  filter(flw_id==min(flw_id, na.rm=T)) %>% 
-  filter(date==min(date, na.rm=T)) %>% 
-  filter(time==min(time, na.rm=T)) %>% 
-  ungroup()
-
-single_mat_lin_gh %>% 
-  count(pop_ord, lin_phenotype) %>% 
-  write_csv('data_processed/pop_year_samples_gh.csv')
-
-pops_in_gh<-c("BAC","FLO","PW","DC", "BMR", "BLOOM")
-
-combined_dataset<-unadjusted_field_data %>% 
-  select(source, name, pop_ord, lin_phenotype, species, id, all_of(scent_cols), tic_peak_area) %>% 
-  filter(pop_ord %in% pops_in_gh) %>% 
-  bind_rows(single_mat_lin_gh %>% 
-              select(source, name, pop_ord, lin_phenotype, species, id, all_of(scent_cols), tic_peak_area)) %>%
-  mutate(linalool_poly= ifelse(linalool>0, 'lin+', 'lin-')) %>% 
-  na.omit()  
-
-
-
-colnames(combined_dataset)
 #convert to prop. of emissions
-
-combined_dataset$Total <- rowSums(combined_dataset[,7:42])
+combined_dataset$Total <- rowSums(combined_dataset[,10:45])
 
 combined_dataset_prop<-combined_dataset %>% 
   mutate_if(is.numeric, ~./Total) 
 # 
-
 
 
 ##**************PLot Boxplots
@@ -93,21 +49,6 @@ anova(total_em_gh.lm)
 
 hist(log(combined_dataset$tic_peak_area) )
 
-combined_dataset %>% 
-  #filter(linalool<400000) %>% 
-  ggplot(aes(x=pop_ord, y= linalool, fill= source))+
-  geom_boxplot()+
-  theme_bw()+
-  scale_fill_manual(values = c("#1A5276","#FF5733"))
-
-
-combined_dataset %>% 
-  ggplot(aes(x=source, y= tic_peak_area, fill= lin_phenotype))+
-  geom_boxplot()+
-  theme_bw()
-
-
-
 ##**************NMDS PROP
 library(ecodist)
 Combo_prop.md <- distance(sqrt(combined_dataset_prop[,scent_cols]), "bray-curtis")
@@ -118,17 +59,17 @@ Combo_prop.nmin <- nmds.min(Combo_prop.nmds)
 ##**************PLot NMDS
 
 Combo_prop.nmin$source <-combined_dataset_prop$source
-Combo_prop.nmin$lin_phenotype <-combined_dataset_prop$lin_phenotype
+Combo_prop.nmin$linalool_phenotype <-combined_dataset_prop$linalool_phenotype
 Combo_prop.nmin$poly <-combined_dataset_prop$linalool_poly
 
 Combo_prop.nmin$pop_ord <-combined_dataset_prop$pop_ord
 
 ggplot(Combo_prop.nmin) + 
-  geom_point(aes(x=X1, y=X2, color=poly, shape=source), alpha=0.8, size=3)+
+  geom_point(aes(x=X1, y=X2, fill=linalool_phenotype, shape=source), alpha=0.8, size=3)+
   #geom_text(aes(label=source),hjust=0.4, vjust=-1,size = rel(6))+
   labs(color = "Chemoytype\n", shape="Source\n") +
-  scale_color_manual(labels = c("lin-", "lin+"), values = c("#1A5276","#FF5733")) +
-  scale_shape_manual(labels = c("field collected", "greenhouse grown"), values=c(0, 16))+
+  scale_fill_manual(values = lin_palette) +
+  scale_shape_manual( values=c(21, 23))+
   theme(panel.background = element_blank(),
         legend.title=element_text(size=rel(1.5)),
         legend.text=element_text(size=rel(1.5)),
@@ -175,11 +116,11 @@ combined_dataset %>%
 
 stat.test <- combined_dataset %>%
   select(source, pop_ord, linalool) %>% 
-  mutate(source= as.factor(source)) %>% 
-  filter(pop_ord!="BMR") %>% 
+  mutate(source = as.factor(source)) %>% 
+  filter(pop_ord !="BMR") %>% 
   droplevels() %>% 
   split(.$pop_ord) %>% 
-  map(function(df) t.test(linalool ~source , data = df))
+  map(function(df) kruskal.test(linalool ~source , data = df))
 
 combined_dataset %>% 
   count(source, pop_ord, lin_phenotype)

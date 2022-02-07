@@ -41,6 +41,10 @@ description
 #scripts to looks at raw data
 #source(here::here("analysis","explore_data.R"))
 
+#source(here::here("analysis","GMM_linalool.R"))
+
+source(here::here("analysis","plot_lin_distribution.R"))
+
 #calculate anosim stats and generate nmds plots
 source(here::here("analysis","anosim_nmds.R"))
 

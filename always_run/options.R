@@ -15,6 +15,8 @@ caption <- 'Analysis performed by DataSF'
 #     ) 
 # }
 
+lin_palette = c( "#595E63", "lightgray", "white")
+
 graph_theme<- theme_bw() +
   theme( axis.text.y = element_text( size=16),
          axis.text.x = element_text( size=16),

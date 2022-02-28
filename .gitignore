@@ -2,10 +2,10 @@
 .Rhistory
 .RData
 .Ruserdata
-.*csv
-.*xlsx
-.*xls
-.*zip
-/raw_data
-/data_processed
-/Figs
+*.csv
+*.xlsx
+*.xls
+*.zip
+*.docx
+*.pdf
+

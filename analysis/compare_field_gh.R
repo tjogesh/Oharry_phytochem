@@ -1,14 +1,10 @@
-
-
 #convert to prop. of emissions
 combined_dataset$Total <- rowSums(combined_dataset[,10:45])
 
-combined_dataset_prop<-combined_dataset %>% 
+combined_dataset_prop <- combined_dataset %>% 
   mutate_if(is.numeric, ~./Total) 
-# 
+#
 
-
-##**************PLot Boxplots
 
 num_samps<-combined_dataset %>% 
   mutate(linalool_PA = ifelse(linalool==0,0,1)) %>% 
@@ -65,7 +61,7 @@ Combo_prop.nmin$poly <-combined_dataset_prop$linalool_poly
 Combo_prop.nmin$pop_ord <-combined_dataset_prop$pop_ord
 
 ggplot(Combo_prop.nmin) + 
-  geom_point(aes(x=X1, y=X2, fill=linalool_phenotype, shape=source), alpha=0.8, size=3)+
+  geom_point(aes(x=X1, y=X2, fill=linalool_phenotype, shape=source), alpha=0.8, size=5)+
   #geom_text(aes(label=source),hjust=0.4, vjust=-1,size = rel(6))+
   labs(color = "Chemoytype\n", shape="Source\n") +
   scale_fill_manual(values = lin_palette) +
@@ -88,31 +84,36 @@ ggsave("Figs/NMDS_GH_field_v2.pdf", width = 11, height = 8.5, units = "in")
 
 #ANOSIM 
 library(vegan)
-data_lin_plus = combined_dataset_prop %>% 
-  filter(lin_phenotype=="linalool") 
+data_lin_high = combined_dataset_prop %>% 
+  filter(linalool_phenotype == "high") 
 
-data_lin_plus %>% 
+data_lin_high %>% 
   count(source)
 
-data_lin_minus = combined_dataset_prop %>% 
-  filter(lin_phenotype=="no linalool") 
+data_lin_none = combined_dataset_prop %>% 
+  filter(linalool_phenotype=="none") 
 
-data_lin_minus %>% 
+data_lin_none %>% 
   count(source)
 
-com_plus<-sqrt(data_lin_plus[,scent_cols])
-sour_plus <- factor(data_lin_plus$source)
-dist_plus.com <- vegdist(com_plus, method = "bray")
-sourceDiff_plus<- anosim(dist_plus.com, sour_plus)
+data_lin_low = combined_dataset_prop %>% 
+  filter(linalool_phenotype == "low") 
 
+data_lin_low %>% 
+  count(source)
 
-com_minus<-sqrt(data_lin_minus[,scent_cols])
-sour_minus <- factor(data_lin_minus$source)
-dist_minus.com <- vegdist(com_minus, method = "bray")
-sourceDiff_minus<- anosim(dist_minus.com, sour_minus)
+get_anosim_gh <- function(.df) {
+  com_plus <- sqrt(.df[,scent_cols])
+  sour_plus <- factor(.df$source)
+  dist_plus.com <- vegdist(com_plus, method = "bray")
+  sourceDiff_plus <- anosim(dist_plus.com, sour_plus)
+  return(sourceDiff_plus)
+}
 
-combined_dataset %>% 
-  count(source, lin_phenotype)
+get_anosim_gh(data_lin_low)
+get_anosim_gh(data_lin_high)
+get_anosim_gh(data_lin_none)
+
 
 stat.test <- combined_dataset %>%
   select(source, pop_ord, linalool) %>% 
@@ -122,6 +123,4 @@ stat.test <- combined_dataset %>%
   split(.$pop_ord) %>% 
   map(function(df) kruskal.test(linalool ~source , data = df))
 
-combined_dataset %>% 
-  count(source, pop_ord, lin_phenotype)
 

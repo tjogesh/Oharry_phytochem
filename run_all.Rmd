@@ -57,7 +57,9 @@ source(here::here("analysis","PopRandomForest.R"))
 #get mantel test stats
 source(here::here("analysis","scent_genetic_dist_mantel.R"))
 
-```
+#get mantel test stats
+source(here::here("analysis","accumulation_curve.R"))
 
+```
 
 

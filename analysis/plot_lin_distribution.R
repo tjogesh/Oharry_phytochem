@@ -1,13 +1,22 @@
+# summary table for Table 1
 field_data %>% 
-  mutate(lin_poly=ifelse(linalool>0, 1, 0)) %>% 
-  group_by(pop_ord) %>% 
+  group_by(pop_ord, linalool_phenotype) %>% 
   summarise(mean = mean(linalool, na.rm = T), 
-            median=  median(linalool, na.rm = T),
-            num_linalool= sum(lin_poly),
-            count = n(),
-            prop_emitting = num_linalool/count)
+            median =  median(linalool, na.rm = T),
+            count = n()) %>% 
+  pivot_wider(names_from = linalool_phenotype, 
+              values_from = c("count", "median", "mean")) %>% 
+  mutate(count_high = ifelse(is.na(count_high), 0, count_high),
+         count_low = ifelse(is.na(count_low), 0, count_low),
+         count_none = ifelse(is.na(count_none), 0, count_none)) %>% 
+  left_join(field_data %>% group_by(pop_ord) %>% count(), by = "pop_ord") %>% 
+  mutate(high_emitting_prop = count_high/n,
+         low_emitting_prop = count_low/n,
+         no_linalool_prop = count_none/n) %>% 
+  write_csv("data_processed/summary_props.csv")
+  
 
-
+# histograms for all pops
 field_data %>% 
   ggplot(aes(x = log(linalool + 1), fill = linalool_phenotype)) +
   geom_histogram(color = "black", alpha = 0.9) +
@@ -17,15 +26,14 @@ field_data %>%
   theme(
     plot.title = element_text(size = 15)
   ) +
-  theme_classic()+
+  theme_classic() +
   xlab("Log linalool emission rate +/- SE\n(ng / flower / hr)")
 
 ggsave("Figs/field_linalool_distribution_pop_hist.pdf", width = 11, height = 8.5, units = "in")
 
 
-
+#pies for all pops
 field_data %>% 
-  #mutate(lin_poly=ifelse(linalool>0, "lin+", "lin-")) %>%
   group_by(pop_ord, linalool_phenotype) %>% 
   count() %>% 
   rename(num_lin = n) %>% 
@@ -40,13 +48,11 @@ field_data %>%
   theme_void() 
 ggsave("Figs/prop_lin_pie_pops.pdf", width = 11, height = 8.5, units = "in")
 
-# field_data %>% 
-#   select(linalool, lin_phenotype, pop_ord) %>% 
-#   View()
 
 
-prop_emit<-field_data %>% 
-  mutate(linalool_PA = ifelse(linalool==0,0,1)) %>% 
+# mean linalool emission (archieved)
+prop_emit <- field_data %>% 
+  mutate(linalool_PA = ifelse(linalool == 0,0,1)) %>% 
   group_by(pop_ord) %>% 
   summarise(prop_lin = sum(linalool_PA, na.rm = T)/n(), 
             total = n())

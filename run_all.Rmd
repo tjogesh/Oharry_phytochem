@@ -45,6 +45,9 @@ description
 
 source(here::here("analysis","plot_lin_distribution.R"))
 
+#generate figure S2
+source(here::here("analysis","plot_other_compounds.R"))
+
 #calculate anosim stats and generate nmds plots
 source(here::here("analysis","anosim_nmds.R"))
 
@@ -57,7 +60,7 @@ source(here::here("analysis","PopRandomForest.R"))
 #get mantel test stats
 source(here::here("analysis","scent_genetic_dist_mantel.R"))
 
-#get mantel test stats
+#get accumulation curve
 source(here::here("analysis","accumulation_curve.R"))
 
 ```

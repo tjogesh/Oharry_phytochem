@@ -267,29 +267,31 @@ greenhouse_morph<-read_excel("raw_data/OharryGreenhouseMorph20082009.xlsx") %>%
 # morph %>% filter(join_id=="2009_MSR_71")
 
 
-scent_and_morph<-all_scent_data %>% 
+scent_and_morph <- all_scent_data %>% 
   left_join(morph) %>% 
-  mutate(pop_ord=fct_relevel(pop_clean, c("MSR",
-                                         "GG",
-                                         "FLO",
-                                         "CC",
-                                         "SB",
+  mutate(pop_ord = fct_relevel(pop_clean, c("CC",
+                                          "FLO",
+                                          "GG",
+                                          "MSR",
+                                          "PW",
+                                          "CHALMAV",
+                                          "BAC",
+                                          "SB",
+                                          "HUB",
+                                          "WALS",
                                          "BMR",
-                                         "HUB",
-                                         "PW",
-                                         "CHALMAV",
-                                         "WALS",
-                                         "BAC",
                                          "HZN",
+                                         "ROU",
                                          "MONS",
                                          "LUD",
                                          "BER",
-                                         "ROU",
-                                         "DC",
-                                         "CMT",
                                          "TRIN",
-                                         "BLOOM"))
+                                         "CMT",
+                                         "BLOOM",
+                                         "DC"
+                                         ))
          )
+
 
 ##----------------------------------------------
 # add linalool phenotype

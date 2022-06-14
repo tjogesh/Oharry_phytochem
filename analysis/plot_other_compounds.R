@@ -1,5 +1,3 @@
-#create bar plots of major phytochemical groups 
-phytochem_lookup<-read_csv("raw_data/phytochem_lookup.csv") 
 
 emit_by_grp_pop<-field_data %>% 
   select(pop_ord, scent_cols, join_id) %>% 

@@ -22,7 +22,7 @@ scent_data %>%
 #scent by year violin plot Fig 3A
 field_data %>% 
   filter(tic_peak_area<1000000) %>% 
-  ggplot(aes(x= year , y = tic_peak_area, fill = year))+
+  ggplot(aes(x= year , y = tic_peak_area, fill = as.factor(year)) )+
   facet_grid(.~pop_ord, scales = "free_x")+
   #geom_boxplot(position=position_dodge2(preserve = "single"), alpha = 0.7)+
   geom_violin(alpha = 0.7)+
@@ -44,6 +44,7 @@ ggsave("Figs/TotalEmissionYear_violin.pdf", width = 11, height = 8.5, units = "i
 
 ## ----------------------------
 #NMDS PLOTS
+sqrt_scent.dis <- distance(sqrt(scent_data[,scent_cols]), "bray-curtis")
 scent.nmds <- ecodist::nmds(sqrt_scent.dis , mindim=2, maxdim=2, nits=3)
 scent.nmds.df <- ecodist::nmds.min(scent.nmds)
 
@@ -109,7 +110,6 @@ ggsave("Figs/NMDSyear_v2.pdf", width = 11, height = 8.5, units = "in")
 # ANOSIMS 
 
 #anosim -- scent differentiation by linalool + and - plants - 3B 
-sqrt_scent.dis <-distance(sqrt(scent_data[,scent_cols]), "bray-curtis")
 linalool_poly <- scent_data %>% select(linalool_poly) %>% pull()
 lin_poly_Diffall <- anosim(sqrt_scent.dis, linalool_poly)
 lin_poly_Diffall

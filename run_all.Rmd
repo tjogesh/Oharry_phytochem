@@ -29,7 +29,8 @@ reads in the excel sheets and produced green scent and morph datasets for analys
 
 ```{r}
 #read in excel sheets from R. Raguso and clean up for analysis
-source(here::here("cleanup","import_clean.R"))
+#source(here::here("cleanup","read_raw_data.R"))
+source(here::here("cleanup","clean_data.R"))
 
 
 ```

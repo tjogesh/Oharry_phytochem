@@ -7,7 +7,7 @@ Files included:
 - floral scent data for Oenothera harringtonii collected in the field and greenhouse
 
 2. "OharryFieldMorph20092012_KS_revised.xlsx"
-- floral morphology data for field collectedOenothera harringtonii plants 
+- floral morphology data for field collected Oenothera harringtonii plants 
 
 3. "OharryGreenhouseMorph20082009.xlsx"
 - floral morphology data for greenhouse collected Oenothera harringtonii plants 

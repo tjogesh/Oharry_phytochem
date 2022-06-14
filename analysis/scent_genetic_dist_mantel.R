@@ -8,7 +8,6 @@ m <- as.matrix(linalool_dist)
 colnames(m)<-lin_per_pop$pop_ord
 rownames(m)<-lin_per_pop$pop_ord
 
-pairwiseFst<-read_csv('raw_data/pairwiseFst.csv')
 
 spatial<-pairwiseFst%>%
   select(Pop1, Pop2, spatial) %>% 

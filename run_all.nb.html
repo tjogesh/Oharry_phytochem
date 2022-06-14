@@ -1777,60 +1777,45 @@ source(here::here(&quot;always_run&quot;,&quot;options.R&quot;))
 <p>reads in the excel sheets and produced green scent and morph datasets for analysis</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI3JlYWQgaW4gZXhjZWwgc2hlZXRzIGZyb20gUi4gUmFndXNvIGFuZCBjbGVhbiB1cCBmb3IgYW5hbHlzaXNcbnNvdXJjZShoZXJlOjpoZXJlKFwiY2xlYW51cFwiLFwiaW1wb3J0X2NsZWFuLlJcIikpXG5gYGAifQ== -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI3JlYWQgaW4gZXhjZWwgc2hlZXRzIGZyb20gUi4gUmFndXNvIGFuZCBjbGVhbiB1cCBmb3IgYW5hbHlzaXNcbiNzb3VyY2UoaGVyZTo6aGVyZShcImNsZWFudXBcIixcInJlYWRfcmF3X2RhdGEuUlwiKSlcbnNvdXJjZShoZXJlOjpoZXJlKFwiY2xlYW51cFwiLFwiY2xlYW5fZGF0YS5SXCIpKVxuYGBgIn0= -->
 <pre class="r"><code>#read in excel sheets from R. Raguso and clean up for analysis
-source(here::here(&quot;cleanup&quot;,&quot;import_clean.R&quot;))</code></pre>
+#source(here::here(&quot;cleanup&quot;,&quot;read_raw_data.R&quot;))
+source(here::here(&quot;cleanup&quot;,&quot;clean_data.R&quot;))</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiTmV3IG5hbWVzOlxuKiBgYCAtPiAuLi43XG4qIGBgIC0+IC4uLjhcbiogYGAgLT4gLi4uMjBcbiogYGAgLT4gLi4uMjFcbiogYGAgLT4gLi4uMzZcbiogLi4uXG5gc3VtbWFyaXNlKClgIGhhcyBncm91cGVkIG91dHB1dCBieSAnY29tcG91bmQnLiBZb3UgY2FuIG92ZXJyaWRlIHVzaW5nIHRoZSBgLmdyb3Vwc2AgYXJndW1lbnQuXG5Kb2luaW5nLCBieSA9IFwibmFtZVwiXG5OZXcgbmFtZXM6XG4qIGBgIC0+IC4uLjE2XG4qIGBgIC0+IC4uLjE3XG5gc3VtbWFyaXNlKClgIGhhcyBncm91cGVkIG91dHB1dCBieSAnY29tcG91bmQnLiBZb3UgY2FuIG92ZXJyaWRlIHVzaW5nIHRoZSBgLmdyb3Vwc2AgYXJndW1lbnQuXG5OZXcgbmFtZXM6XG4qIGBgIC0+IC4uLjIzXG4qIGBgIC0+IC4uLjI0XG4qIGBgIC0+IC4uLjM1XG4qIGBgIC0+IC4uLjM2XG4qIGBgIC0+IC4uLjQ3XG4qIC4uLlxuYHN1bW1hcmlzZSgpYCBoYXMgZ3JvdXBlZCBvdXRwdXQgYnkgJ2NvbXBvdW5kJy4gWW91IGNhbiBvdmVycmlkZSB1c2luZyB0aGUgYC5ncm91cHNgIGFyZ3VtZW50LlxuSm9pbmluZywgYnkgPSBcIm5hbWVcIlxuTmV3IG5hbWVzOlxuKiBgYCAtPiAuLi4zM1xuKiBgYCAtPiAuLi4zNFxuKiBgYCAtPiAuLi42NVxuKiBgYCAtPiAuLi42NlxuKiBgYCAtPiAuLi44MlxuKiAuLi5cbmBzdW1tYXJpc2UoKWAgaGFzIGdyb3VwZWQgb3V0cHV0IGJ5ICdjb21wb3VuZCcuIFlvdSBjYW4gb3ZlcnJpZGUgdXNpbmcgdGhlIGAuZ3JvdXBzYCBhcmd1bWVudC5cbkpvaW5pbmcsIGJ5ID0gXCJuYW1lXCJcbk5ldyBuYW1lczpcbiogYGAgLT4gLi4uMzNcbiogYGAgLT4gLi4uMzRcbiogYGAgLT4gLi4uNjRcbiogYGAgLT4gLi4uNjVcbiogYGAgLT4gLi4uOTRcbiogLi4uXG5gc3VtbWFyaXNlKClgIGhhcyBncm91cGVkIG91dHB1dCBieSAnY29tcG91bmQnLiBZb3UgY2FuIG92ZXJyaWRlIHVzaW5nIHRoZSBgLmdyb3Vwc2AgYXJndW1lbnQuXG5Kb2luaW5nLCBieSA9IFwibmFtZVwiXG5OZXcgbmFtZXM6XG4qIGBgIC0+IC4uLjMyXG4qIGBgIC0+IC4uLjMzXG4qIGBgIC0+IC4uLjQ2XG4qIGBgIC0+IC4uLjQ3XG4qIGBgIC0+IC4uLjc1XG4qIC4uLlxuYHN1bW1hcmlzZSgpYCBoYXMgZ3JvdXBlZCBvdXRwdXQgYnkgJ2NvbXBvdW5kJy4gWW91IGNhbiBvdmVycmlkZSB1c2luZyB0aGUgYC5ncm91cHNgIGFyZ3VtZW50LlxuRXhwZWN0ZWQgMiBwaWVjZXMuIE1pc3NpbmcgcGllY2VzIGZpbGxlZCB3aXRoIGBOQWAgaW4gNjY0IHJvd3MgWzEsIDIsIDMsIDQsIDUsIDYsIDcsIDgsIDksIDEwLCAxMSwgMTIsIDEzLCAxNCwgMTUsIDE2LCAxNywgMTgsIDE5LCAyMCwgLi4uXS5OQXMgaW50cm9kdWNlZCBieSBjb2VyY2lvbkpvaW5pbmcsIGJ5ID0gXCJqb2luX2lkXCJcbiJ9 -->
-<pre><code>New names:
-* `` -&gt; ...7
-* `` -&gt; ...8
-* `` -&gt; ...20
-* `` -&gt; ...21
-* `` -&gt; ...36
-* ...
-`summarise()` has grouped output by &#39;compound&#39;. You can override using the `.groups` argument.
-Joining, by = &quot;name&quot;
-New names:
-* `` -&gt; ...16
-* `` -&gt; ...17
-`summarise()` has grouped output by &#39;compound&#39;. You can override using the `.groups` argument.
-New names:
-* `` -&gt; ...23
-* `` -&gt; ...24
-* `` -&gt; ...35
-* `` -&gt; ...36
-* `` -&gt; ...47
-* ...
-`summarise()` has grouped output by &#39;compound&#39;. You can override using the `.groups` argument.
-Joining, by = &quot;name&quot;
-New names:
-* `` -&gt; ...33
-* `` -&gt; ...34
-* `` -&gt; ...65
-* `` -&gt; ...66
-* `` -&gt; ...82
-* ...
-`summarise()` has grouped output by &#39;compound&#39;. You can override using the `.groups` argument.
-Joining, by = &quot;name&quot;
-New names:
-* `` -&gt; ...33
-* `` -&gt; ...34
-* `` -&gt; ...64
-* `` -&gt; ...65
-* `` -&gt; ...94
-* ...
-`summarise()` has grouped output by &#39;compound&#39;. You can override using the `.groups` argument.
-Joining, by = &quot;name&quot;
-New names:
-* `` -&gt; ...32
-* `` -&gt; ...33
-* `` -&gt; ...46
-* `` -&gt; ...47
-* `` -&gt; ...75
-* ...
-`summarise()` has grouped output by &#39;compound&#39;. You can override using the `.groups` argument.
-Expected 2 pieces. Missing pieces filled with `NA` in 664 rows [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, ...].NAs introduced by coercionJoining, by = &quot;join_id&quot;</code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiUm93czogMTcwIENvbHVtbnM6IDE2XG7ilIDilIAgQ29sdW1uIHNwZWNpZmljYXRpb24g4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSAXG5EZWxpbWl0ZXI6IFwiLFwiXG5jaHIgICgxMCk6IHNpdGVfbmFtZSwgcGxhbnRfaWQsIGhlcmtvZ2FteSwgdHViZV9sZW5ndGgsIG5lY3Rhcl9sZW5ndGgsIHN1Y3Jvc2VfZXF1aXZhbGVudCwgbm90ZXMsIGxvY2F0aW9uLCB0aW1lLC4uLlxuZGJsICAgKDUpOiB2aWFsX251bWJlciwgbWF0ZXJuYWxfbGluZSwgY29yb2xsYV9kaWFtZXRlcl8xLCBjb3JvbGxhX2RpYW1ldGVyXzIsIGZsb3JhbF9mbGFyZVxuZHR0bSAgKDEpOiBkYXRlXG5cbuKEuSBVc2UgYHNwZWMoKWAgdG8gcmV0cmlldmUgdGhlIGZ1bGwgY29sdW1uIHNwZWNpZmljYXRpb24gZm9yIHRoaXMgZGF0YS5cbuKEuSBTcGVjaWZ5IHRoZSBjb2x1bW4gdHlwZXMgb3Igc2V0IGBzaG93X2NvbF90eXBlcyA9IEZBTFNFYCB0byBxdWlldCB0aGlzIG1lc3NhZ2UuXG5Sb3dzOiA2NjUgQ29sdW1uczogMThcbuKUgOKUgCBDb2x1bW4gc3BlY2lmaWNhdGlvbiDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIBcbkRlbGltaXRlcjogXCIsXCJcbmNociAgKDUpOiBzaXRlX25hbWUsIHBsYW50X2lkX18sIG5vdGVzLCBzaXRlX2NsZWFuLCBqb2luX2lkXG5kYmwgKDEzKTogZGF0ZSwgdmlhbF8sIGNvcm9sbGFfZGlhbWV0ZXJfMSwgY29yb2xsYV9kaWFtZXRlcl8yLCBmbG9yYWxfZmxhcmUsIGhlcmtvZ2FteSwgdHViZV9sZW5ndGgxLCB0dWJlX2xlbmd0aC4uLlxuXG7ihLkgVXNlIGBzcGVjKClgIHRvIHJldHJpZXZlIHRoZSBmdWxsIGNvbHVtbiBzcGVjaWZpY2F0aW9uIGZvciB0aGlzIGRhdGEuXG7ihLkgU3BlY2lmeSB0aGUgY29sdW1uIHR5cGVzIG9yIHNldCBgc2hvd19jb2xfdHlwZXMgPSBGQUxTRWAgdG8gcXVpZXQgdGhpcyBtZXNzYWdlLlxuUm93czogNzk4IENvbHVtbnM6IDQ2XG7ilIDilIAgQ29sdW1uIHNwZWNpZmljYXRpb24g4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSAXG5EZWxpbWl0ZXI6IFwiLFwiXG5jaHIgICg2KTogbmFtZSwgc3BlY2llcywgcG9wLCBzb3VyY2UsIHBvcF9jbGVhbiwgam9pbl9pZFxuZGJsICg0MCk6IGlkLCBwaGVueWxldGhhbm9sLCBhbHBoYV9odW11bGVuZSwgYWxwaGFfdGVycGluZW9sLCBhbnRpXzJtZXRoeWxidXR5bGFsZG94aW1lLCBhbnRpXzNtZXRoeWxidXR5bGFsZG94aW0uLi5cblxu4oS5IFVzZSBgc3BlYygpYCB0byByZXRyaWV2ZSB0aGUgZnVsbCBjb2x1bW4gc3BlY2lmaWNhdGlvbiBmb3IgdGhpcyBkYXRhLlxu4oS5IFNwZWNpZnkgdGhlIGNvbHVtbiB0eXBlcyBvciBzZXQgYHNob3dfY29sX3R5cGVzID0gRkFMU0VgIHRvIHF1aWV0IHRoaXMgbWVzc2FnZS5cblJvd3M6IDM2IENvbHVtbnM6IDJcbuKUgOKUgCBDb2x1bW4gc3BlY2lmaWNhdGlvbiDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIBcbkRlbGltaXRlcjogXCIsXCJcbmNociAoMik6IGNvbXBvdW5kLCBncm91cFxuXG7ihLkgVXNlIGBzcGVjKClgIHRvIHJldHJpZXZlIHRoZSBmdWxsIGNvbHVtbiBzcGVjaWZpY2F0aW9uIGZvciB0aGlzIGRhdGEuXG7ihLkgU3BlY2lmeSB0aGUgY29sdW1uIHR5cGVzIG9yIHNldCBgc2hvd19jb2xfdHlwZXMgPSBGQUxTRWAgdG8gcXVpZXQgdGhpcyBtZXNzYWdlLlxuSm9pbmluZywgYnkgPSBcImpvaW5faWRcIlxuIn0= -->
+<pre><code>Rows: 170 Columns: 16
+── Column specification ─────────────────────────────────────────────────────────────────────────────────────────────
+Delimiter: &quot;,&quot;
+chr  (10): site_name, plant_id, herkogamy, tube_length, nectar_length, sucrose_equivalent, notes, location, time,...
+dbl   (5): vial_number, maternal_line, corolla_diameter_1, corolla_diameter_2, floral_flare
+dttm  (1): date
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+Rows: 665 Columns: 18
+── Column specification ─────────────────────────────────────────────────────────────────────────────────────────────
+Delimiter: &quot;,&quot;
+chr  (5): site_name, plant_id__, notes, site_clean, join_id
+dbl (13): date, vial_, corolla_diameter_1, corolla_diameter_2, floral_flare, herkogamy, tube_length1, tube_length...
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+Rows: 798 Columns: 46
+── Column specification ─────────────────────────────────────────────────────────────────────────────────────────────
+Delimiter: &quot;,&quot;
+chr  (6): name, species, pop, source, pop_clean, join_id
+dbl (40): id, phenylethanol, alpha_humulene, alpha_terpineol, anti_2methylbutylaldoxime, anti_3methylbutylaldoxim...
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+Rows: 36 Columns: 2
+── Column specification ─────────────────────────────────────────────────────────────────────────────────────────────
+Delimiter: &quot;,&quot;
+chr (2): compound, group
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+Joining, by = &quot;join_id&quot;</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-output-begin eyJkYXRhIjoibnVtYmVyIG9mIGl0ZXJhdGlvbnM9IDU5IFxuIn0= -->
 <pre><code>number of iterations= 59 </code></pre>
@@ -1846,8 +1831,8 @@ Expected 2 pieces. Missing pieces filled with `NA` in 664 rows [1, 2, 3, 4, 5, 6
 <p>description</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI2dldCBtYW50ZWwgdGVzdCBzdGF0c1xuc291cmNlKGhlcmU6OmhlcmUoXCJhbmFseXNpc1wiLFwiYWNjdW11bGF0aW9uX2N1cnZlLlJcIikpXG5cbmBgYCJ9 -->
-<pre class="r"><code>#get mantel test stats
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI2dldCBhY2N1bXVsYXRpb24gY3VydmVcbnNvdXJjZShoZXJlOjpoZXJlKFwiYW5hbHlzaXNcIixcImFjY3VtdWxhdGlvbl9jdXJ2ZS5SXCIpKVxuXG5gYGAifQ== -->
+<pre class="r"><code>#get accumulation curve
 source(here::here(&quot;analysis&quot;,&quot;accumulation_curve.R&quot;))
 </code></pre>
 <!-- rnb-source-end -->
@@ -1865,7 +1850,7 @@ source(here::here(&quot;analysis&quot;,&quot;accumulation_curve.R&quot;))
 <!-- rnb-text-end -->
 </div>
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiUnVuIEFsbCIKb3V0cHV0OiBodG1sX25vdGVib29rCmVkaXRvcl9vcHRpb25zOiAKICBjaHVua19vdXRwdXRfdHlwZTogaW5saW5lCi0tLQoKKiBQcmltYXJ5IEF1dGhvcjogVGFuaWEgSm9nZXNoLCB0YW5pYS5qb2dlc2hAZ21haWwuY29tCiogUHJvamVjdCBTdGFydGVkOiAxMC8xOC8yMDIxCiogU3lzdGVtOiBNYWMgT1NYLiJ4ODZfNjQtYXBwbGUtZGFyd2luMTcuMCIKKiBSIFZlcnNpb246IFIgdmVyc2lvbiA0LjAuMiAoMjAyMC0wNi0yMikKCipUaGlzIHNjcmlwdCB3aWxsIHJ1biAoaW4gb3JkZXIpIGFsbCBuZWNjZXNzYXJ5IHNjcmlwdHMgYW5kIFJtZHMgdG8gZ2VuZXJhdGUgZmluYWwgb3V0cHV0LioKCgoKIyMjIEFsd2F5cyBSdW4gU2NyaXB0cwoKYGBge3J9CnNvdXJjZShoZXJlOjpoZXJlKCJhbHdheXNfcnVuIiwibGlicmFyaWVzLlIiKSkKc291cmNlKGhlcmU6OmhlcmUoImFsd2F5c19ydW4iLCJmdW5jdGlvbnMuUiIpKQpzb3VyY2UoaGVyZTo6aGVyZSgiYWx3YXlzX3J1biIsIm9wdGlvbnMuUiIpKQoKYGBgCgoKIyMjIENsZWFuIFVwIFNjcmlwdHMKcmVhZHMgaW4gdGhlIGV4Y2VsIHNoZWV0cyBhbmQgcHJvZHVjZWQgZ3JlZW4gc2NlbnQgYW5kIG1vcnBoIGRhdGFzZXRzIGZvciBhbmFseXNpcwoKYGBge3J9CiNyZWFkIGluIGV4Y2VsIHNoZWV0cyBmcm9tIFIuIFJhZ3VzbyBhbmQgY2xlYW4gdXAgZm9yIGFuYWx5c2lzCnNvdXJjZShoZXJlOjpoZXJlKCJjbGVhbnVwIiwiaW1wb3J0X2NsZWFuLlIiKSkKCgpgYGAKCiMjIyBBbmFseXNpcyBTY3JpcHRzCmRlc2NyaXB0aW9uCgpgYGB7cn0KI3NjcmlwdHMgdG8gbG9va3MgYXQgcmF3IGRhdGEKI3NvdXJjZShoZXJlOjpoZXJlKCJhbmFseXNpcyIsImV4cGxvcmVfZGF0YS5SIikpCgojc291cmNlKGhlcmU6OmhlcmUoImFuYWx5c2lzIiwiR01NX2xpbmFsb29sLlIiKSkKCnNvdXJjZShoZXJlOjpoZXJlKCJhbmFseXNpcyIsInBsb3RfbGluX2Rpc3RyaWJ1dGlvbi5SIikpCgojY2FsY3VsYXRlIGFub3NpbSBzdGF0cyBhbmQgZ2VuZXJhdGUgbm1kcyBwbG90cwpzb3VyY2UoaGVyZTo6aGVyZSgiYW5hbHlzaXMiLCJhbm9zaW1fbm1kcy5SIikpCgojY2FsY3VsYXRlIGFub3NpbSBzdGF0cyBhbmQgZ2VuZXJhdGUgbm1kcyBwbG90cyBmb3IgZ3JlZW5ob3VzZSB2cyBmaWVsZCBjb21wYXJpc29ucwpzb3VyY2UoaGVyZTo6aGVyZSgiYW5hbHlzaXMiLCJjb21wYXJlX2ZpZWxkX2doLlIiKSkKCiNnZW5lcmF0ZSByYW5kb20gZm9yZXN0IGZpZ3VyZQpzb3VyY2UoaGVyZTo6aGVyZSgiYW5hbHlzaXMiLCJQb3BSYW5kb21Gb3Jlc3QuUiIpKQoKI2dldCBtYW50ZWwgdGVzdCBzdGF0cwpzb3VyY2UoaGVyZTo6aGVyZSgiYW5hbHlzaXMiLCJzY2VudF9nZW5ldGljX2Rpc3RfbWFudGVsLlIiKSkKCiNnZXQgbWFudGVsIHRlc3Qgc3RhdHMKc291cmNlKGhlcmU6OmhlcmUoImFuYWx5c2lzIiwiYWNjdW11bGF0aW9uX2N1cnZlLlIiKSkKCmBgYAoKCg==</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiUnVuIEFsbCIKb3V0cHV0OiBodG1sX25vdGVib29rCmVkaXRvcl9vcHRpb25zOiAKICBjaHVua19vdXRwdXRfdHlwZTogaW5saW5lCi0tLQoKKiBQcmltYXJ5IEF1dGhvcjogVGFuaWEgSm9nZXNoLCB0YW5pYS5qb2dlc2hAZ21haWwuY29tCiogUHJvamVjdCBTdGFydGVkOiAxMC8xOC8yMDIxCiogU3lzdGVtOiBNYWMgT1NYLiJ4ODZfNjQtYXBwbGUtZGFyd2luMTcuMCIKKiBSIFZlcnNpb246IFIgdmVyc2lvbiA0LjAuMiAoMjAyMC0wNi0yMikKCipUaGlzIHNjcmlwdCB3aWxsIHJ1biAoaW4gb3JkZXIpIGFsbCBuZWNjZXNzYXJ5IHNjcmlwdHMgYW5kIFJtZHMgdG8gZ2VuZXJhdGUgZmluYWwgb3V0cHV0LioKCgoKIyMjIEFsd2F5cyBSdW4gU2NyaXB0cwoKYGBge3J9CnNvdXJjZShoZXJlOjpoZXJlKCJhbHdheXNfcnVuIiwibGlicmFyaWVzLlIiKSkKc291cmNlKGhlcmU6OmhlcmUoImFsd2F5c19ydW4iLCJmdW5jdGlvbnMuUiIpKQpzb3VyY2UoaGVyZTo6aGVyZSgiYWx3YXlzX3J1biIsIm9wdGlvbnMuUiIpKQoKYGBgCgoKIyMjIENsZWFuIFVwIFNjcmlwdHMKcmVhZHMgaW4gdGhlIGV4Y2VsIHNoZWV0cyBhbmQgcHJvZHVjZWQgZ3JlZW4gc2NlbnQgYW5kIG1vcnBoIGRhdGFzZXRzIGZvciBhbmFseXNpcwoKYGBge3J9CiNyZWFkIGluIGV4Y2VsIHNoZWV0cyBmcm9tIFIuIFJhZ3VzbyBhbmQgY2xlYW4gdXAgZm9yIGFuYWx5c2lzCiNzb3VyY2UoaGVyZTo6aGVyZSgiY2xlYW51cCIsInJlYWRfcmF3X2RhdGEuUiIpKQpzb3VyY2UoaGVyZTo6aGVyZSgiY2xlYW51cCIsImNsZWFuX2RhdGEuUiIpKQoKCmBgYAoKIyMjIEFuYWx5c2lzIFNjcmlwdHMKZGVzY3JpcHRpb24KCmBgYHtyfQojc2NyaXB0cyB0byBsb29rcyBhdCByYXcgZGF0YQojc291cmNlKGhlcmU6OmhlcmUoImFuYWx5c2lzIiwiZXhwbG9yZV9kYXRhLlIiKSkKCiNzb3VyY2UoaGVyZTo6aGVyZSgiYW5hbHlzaXMiLCJHTU1fbGluYWxvb2wuUiIpKQoKc291cmNlKGhlcmU6OmhlcmUoImFuYWx5c2lzIiwicGxvdF9saW5fZGlzdHJpYnV0aW9uLlIiKSkKCiNnZW5lcmF0ZSBmaWd1cmUgUzIKc291cmNlKGhlcmU6OmhlcmUoImFuYWx5c2lzIiwicGxvdF9vdGhlcl9jb21wb3VuZHMuUiIpKQoKI2NhbGN1bGF0ZSBhbm9zaW0gc3RhdHMgYW5kIGdlbmVyYXRlIG5tZHMgcGxvdHMKc291cmNlKGhlcmU6OmhlcmUoImFuYWx5c2lzIiwiYW5vc2ltX25tZHMuUiIpKQoKI2NhbGN1bGF0ZSBhbm9zaW0gc3RhdHMgYW5kIGdlbmVyYXRlIG5tZHMgcGxvdHMgZm9yIGdyZWVuaG91c2UgdnMgZmllbGQgY29tcGFyaXNvbnMKc291cmNlKGhlcmU6OmhlcmUoImFuYWx5c2lzIiwiY29tcGFyZV9maWVsZF9naC5SIikpCgojZ2VuZXJhdGUgcmFuZG9tIGZvcmVzdCBmaWd1cmUKc291cmNlKGhlcmU6OmhlcmUoImFuYWx5c2lzIiwiUG9wUmFuZG9tRm9yZXN0LlIiKSkKCiNnZXQgbWFudGVsIHRlc3Qgc3RhdHMKc291cmNlKGhlcmU6OmhlcmUoImFuYWx5c2lzIiwic2NlbnRfZ2VuZXRpY19kaXN0X21hbnRlbC5SIikpCgojZ2V0IGFjY3VtdWxhdGlvbiBjdXJ2ZQpzb3VyY2UoaGVyZTo6aGVyZSgiYW5hbHlzaXMiLCJhY2N1bXVsYXRpb25fY3VydmUuUiIpKQoKYGBgCgoK</div>
 
 
 
